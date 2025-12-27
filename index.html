@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>華語生詞記憶翻牌 (中文發音)</title>
+    <title>华语生词记忆翻牌 (中文发音)</title>
     <style>
         :root {
             --card-bg: #fff;
-            --card-back: #c0392b; /* 背面改為深紅色，更有華語學習的感覺 */
+            --card-back: #c0392b; /* 背面改为深红色，更有华语学习的感觉 */
             --match-color: #27ae60;
         }
 
         body {
-            font-family: "微軟正黑體", "Helvetica Neue", sans-serif;
+            font-family: "微软正黑体", "Helvetica Neue", sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #fce4ec; /* 背景改為淡粉色，視覺柔和 */
+            background-color: #fce4ec; /* 背景改为淡粉色，视觉柔和 */
             min-height: 100vh;
             margin: 0;
             padding: 10px;
@@ -37,7 +37,7 @@
             color: #555;
         }
 
-        /* 5欄版面 */
+        /* 5栏版面 */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr); 
@@ -99,8 +99,8 @@
             font-size: 2.5em;
         }
         .back-face::after {
-            content: "華"; /* 背面裝飾字 */
-            font-family: "標楷體", "KaiTi", serif;
+            content: "华"; /* 背面装饰字 */
+            font-family: "标楷体", "KaiTi", serif;
         }
 
         .memory-card.matched .front-face {
@@ -139,16 +139,16 @@
 </head>
 <body>
 
-    <h1>華語生詞配對</h1>
+    <h1>华语生词配对</h1>
     
     <div class="status-bar">
-        <div>步數: <span id="moves">0</span></div>
-        <div>配對: <span id="pairs">0</span> / <span id="total-pairs">0</span></div>
+        <div>步数: <span id="moves">0</span></div>
+        <div>配对: <span id="pairs">0</span> / <span id="total-pairs">0</span></div>
     </div>
 
     <div class="grid-container" id="game-grid"></div>
 
-    <button onclick="initGame()">重新開始</button>
+    <button onclick="initGame()">重新开始</button>
 
     <script src="words.js"></script>
 
@@ -167,21 +167,21 @@
         let moves = 0;
         let matchedPairs = 0;
 
-        // --- 發音函數 (設定為中文) ---
+        // --- 发音函数 (设定为中文) ---
         function speak(text) {
             if (!('speechSynthesis' in window)) return;
 
             window.speechSynthesis.cancel(); 
             
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'zh-TW'; // 強制讀中文
-            utterance.rate = 0.9;     // 稍微放慢一點點，適合教學
+            utterance.lang = 'zh-TW'; // 强制读中文
+            utterance.rate = 0.9;     // 稍微放慢一点点，适合教学
             
             window.speechSynthesis.speak(utterance);
         }
 
         if (typeof wordData === 'undefined') {
-            alert("錯誤：找不到 words.js。");
+            alert("错误：找不到 words.js。");
         }
 
         function shuffle(array) {
@@ -208,11 +208,11 @@
 
             let deck = [];
             selectedWords.forEach(item => {
-                // --- 這裡邏輯反轉 ---
-                // type: 'word'    => 對應 words.js 裡的 "word" 欄位 (這是中文)
-                // type: 'meaning' => 對應 words.js 裡的 "meaning" 欄位 (這是英文)
+                // --- 这里逻辑反转 ---
+                // type: 'word'    => 对应 words.js 里的 "word" 字段 (这是中文)
+                // type: 'meaning' => 对应 words.js 里的 "meaning" 字段 (这是英文)
                 
-                deck.push({ id: item.word, text: item.word, type: 'word' });    // 中文卡
+                deck.push({ id: item.word, text: item.word, type: 'word' });    // 汉卡
                 deck.push({ id: item.word, text: item.meaning, type: 'meaning' }); // 英文卡
             });
 
@@ -244,14 +244,14 @@
 
             this.classList.add('flip');
 
-            // --- 關鍵修改：邏輯反轉 ---
+            // --- 关键修改：逻辑反转 ---
             const cardType = this.dataset.type;
             
-            // 如果卡片類型是 'word' (我們定義這是中文生詞) -> 發音
+            // 如果卡片类型是 'word' (我们定义这是中文生词) -> 发音
             if (cardType === 'word') {
                 speak(this.dataset.content);
             } 
-            // 如果卡片類型是 'meaning' (英文解釋) -> 靜音
+            // 如果卡片类型是 'meaning' (英文解释) -> 静音
             else {
                 // Do nothing
             }
@@ -288,7 +288,7 @@
 
             let targetPairs = parseInt(totalPairsDisplay.innerText);
             if (matchedPairs === targetPairs) {
-                setTimeout(() => alert(`太棒了！你用了 ${moves} 步完成練習！`), 500);
+                setTimeout(() => alert(`太棒了！你用了 ${moves} 步完成练习！`), 500);
             }
         }
 
